@@ -5,6 +5,6 @@ applications:
   disk_quota: 1024M
   random-route: true
   stack: cflinuxfs2
-  path: target/apps-movie-fun-code-0.0.1-SNAPSHOT.jar
+  path: target/moviefun-0.0.1-SNAPSHOT.war
   services:
     - attendee-mysql
