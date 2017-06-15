@@ -38,5 +38,5 @@ jobs:
   - task: smoke_test
     file: apps-movie-fun-code/ci/tasks/smoke-test.yml
     params:
-      MOVIE_FUN_URL: http://moviefun.example.com
+      MOVIE_FUN_URL: http://apps-movie-fun-code-spinier-stringboard.cfapps.io
 
