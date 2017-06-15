@@ -1,0 +1,42 @@
+---
+resources:
+- name: apps-movie-fun-code
+  type: git
+  source:
+    uri: https://github.com/SimonHeerschap/apps-movie-fun-code.git
+    branch: spring-boot
+
+- name: deploy-apps-movie-fun-code
+  type: cf
+  source:
+    api: api.run.pivotal.io        #<---- REPLACE ME
+    username: {{cf-user}}
+    password: {{cf-password}}
+    organization: Pivotal-Education-Students    #<---- REPLACE ME
+    space: simon-sandbox         #<---- REPLACE ME
+    skip_cert_check: true
+
+jobs:
+- name: deploy
+  public: true
+  plan:
+  - get: apps-movie-fun-code
+    trigger: true
+  - task: package
+    file: apps-movie-fun-code/ci/tasks/package.yml
+  - put: deploy-apps-movie-fun-code
+    params:
+      manifest: apps-movie-fun-code/manifest.yml
+      path: package-output/apps-movie-fun-code.jar
+
+- name: smoke_test
+  public: true
+  plan:
+  - get: apps-movie-fun-code
+    trigger: true
+    passed: [deploy]
+  - task: smoke_test
+    file: apps-movie-fun-code/ci/tasks/smoke-test.yml
+    params:
+      MOVIE_FUN_URL: http://moviefun.example.com
+
