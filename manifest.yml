@@ -8,4 +8,4 @@ applications:
   path: target/moviefun.war
   services:
     - attendee-mysql
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  buildpack: java_buildpack
